@@ -10,13 +10,11 @@ import androidx.annotation.RequiresApi
 import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var receiver: SmsReceiver
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         requestSmsPermission()
     }
 
@@ -27,20 +25,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        receiver = SmsReceiver()
-        val filter = IntentFilter("android.provider.Telephony.SMS_RECEIVED")
-        registerReceiver(receiver, filter)
-    }
-
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(receiver)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1) {
             var msg = "Permission to receive sms"
