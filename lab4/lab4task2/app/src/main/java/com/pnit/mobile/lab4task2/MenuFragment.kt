@@ -29,7 +29,7 @@ class MenuFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
-            mListener = context as OnFragmentInteractionListener
+            mListener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
@@ -60,6 +60,7 @@ class MenuFragment : Fragment() {
         menu_listview.setOnItemClickListener { parent, _, position, _ ->
             val selectedWebsiteName = parent.getItemAtPosition(position) as String
             val selectedWebsite = websites.filter { website -> website.name == selectedWebsiteName }[0]
+            mListener!!.onFragmentInteraction(selectedWebsite.url)
         }
     }
 
@@ -67,6 +68,7 @@ class MenuFragment : Fragment() {
         super.onDetach()
         mListener = null
     }
+
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(result: String?)
