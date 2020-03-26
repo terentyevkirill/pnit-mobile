@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity(), GridAdapter.ItemInteractionListener {
     }
 
     override fun onItemClicked(circle: Circle) {
-        Toast.makeText(this, "${circle.number} clicked!", Toast.LENGTH_SHORT).show()
+        val dialog = MyDialog.newInstance(circle.number)
+        dialog.show(supportFragmentManager, "dialog")
     }
 
 }
