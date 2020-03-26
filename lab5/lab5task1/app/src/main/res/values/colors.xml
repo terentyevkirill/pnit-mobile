@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="pink">#F48FB1</color>
+    <color name="purple">#CE93D8</color>
+    <color name="darkBlue">#9FA8DA</color>
+    <color name="blue">#90CAF9</color>
+    <color name="lightBlue">#81D4FA</color>
+    <color name="cyan">#80DEEA</color>
+    <color name="darkGreen">#80CBC4</color>
+    <color name="green">#A5D6A7</color>
+    <color name="lightGreen">#C5E1A5</color>
+    <color name="lemon">#E6EE9C</color>
+    <color name="yellow">#FFF59D</color>
+    <color name="orange">#FFE082</color>
+    <color name="ochre">#FFCC80</color>
+    <color name="carrot">#FFAB91</color>
+
+    <integer-array name="circleColors">
+        <item>@color/pink</item>
+        <item>@color/purple</item>
+        <item>@color/darkBlue</item>
+        <item>@color/blue</item>
+        <item>@color/lightBlue</item>
+        <item>@color/cyan</item>
+        <item>@color/darkGreen</item>
+        <item>@color/green</item>
+        <item>@color/lightGreen</item>
+        <item>@color/lemon</item>
+        <item>@color/yellow</item>
+        <item>@color/orange</item>
+        <item>@color/ochre</item>
+        <item>@color/carrot</item>
+    </integer-array>
+</resources>
