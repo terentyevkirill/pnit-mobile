@@ -2,10 +2,10 @@ package com.pnit.mobile.lab5task1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
+
 class MainActivity : AppCompatActivity(), GridAdapter.ItemInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,11 +16,11 @@ class MainActivity : AppCompatActivity(), GridAdapter.ItemInteractionListener {
             Circle(Random.nextInt(1, 99), colors[Random.nextInt(colors.size)])
         }.toList()
         recyclerView.layoutManager = GridLayoutManager(this, 4)
-        recyclerView.adapter = GridAdapter(this, circles, this)
+        recyclerView.adapter = GridAdapter(circles, this)
     }
 
     override fun onItemClicked(circle: Circle) {
-        val dialog = MyDialog.newInstance(circle.number)
+        val dialog = SelectedDialog.newInstance(circle.number)
         dialog.show(supportFragmentManager, "dialog")
     }
 

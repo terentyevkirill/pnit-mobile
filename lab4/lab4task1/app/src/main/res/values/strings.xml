@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Lab4task1</string>
-    <string name="blue_fragment">Blue Fragment</string>
-    <string name="red_fragment">Red Fragment</string>
-    <string name="yellow_fragment">Yellow Fragment</string>
-    <string name="green_fragment">Green Fragment</string>
-</resources>

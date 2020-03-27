@@ -4,14 +4,11 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
 private const val ARG_NUMBER = "number"
 
-class MyDialog : DialogFragment() {
+class SelectedDialog : DialogFragment() {
     private var number: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,14 +16,6 @@ class MyDialog : DialogFragment() {
         arguments?.let {
             number = it.getInt(ARG_NUMBER)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dialog, container, false)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -42,7 +31,7 @@ class MyDialog : DialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(number: Int) =
-            MyDialog().apply {
+            SelectedDialog().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_NUMBER, number)
                 }
