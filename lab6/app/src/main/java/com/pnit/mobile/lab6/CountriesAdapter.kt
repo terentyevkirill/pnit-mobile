@@ -29,7 +29,6 @@ class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
         }
     }
 
-
     fun setCountries(countries: List<Country>) {
         d("CountriesAdapter", "countries:$countries")
         this.countries = countries
@@ -46,6 +45,4 @@ class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(countries[position])
     }
-
-
 }

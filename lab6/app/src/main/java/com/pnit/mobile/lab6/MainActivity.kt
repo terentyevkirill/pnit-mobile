@@ -7,11 +7,14 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,13 +33,34 @@ class MainActivity : AppCompatActivity(),
         initSnackBar()
         initSwipeRefreshLayout()
         initApi()
-        loadData()
         onRefresh()
     }
 
     private fun loadData() {
         val task = LoadAsyncTask(swipeRefreshLayout, apiService, adapter)
         task.execute()
+    }
+
+    private fun loadDataEasy() {
+        apiService.getCountriesData().enqueue(object : Callback<List<Country>> {
+            override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
+                Log.d("MainActivity", "onResponse: ${response.body()}")
+                if (response.isSuccessful) {
+                    val countries = response.body()!!
+                    countries.map { c ->
+                        c.flag =
+                            "https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${c.iso2.toLowerCase()}.png"
+                    }
+                    adapter.setCountries(countries)
+                }
+                swipeRefreshLayout.isRefreshing = false
+            }
+
+            override fun onFailure(call: Call<List<Country>>, t: Throwable) {
+                Toast.makeText(applicationContext, "Something went wrong!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
     }
 
     private fun initRecyclerView() {
@@ -74,20 +98,16 @@ class MainActivity : AppCompatActivity(),
                 Log.d("MainActivity", "onResponse: ${response!!.body()}")
                 if (response.isSuccessful) {
                     val countries = response.body()!!
-                    addFlags(countries)
+                    countries.map { c ->
+                        c.flag =
+                            "https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${c.iso2.toLowerCase()}.png"
+                    }
                     adapter.setCountries(countries)
                 }
             } catch (e: Exception) {
                 Log.d("MainActivity", "Something wrong!")
             } finally {
                 swipeRefreshLayout.isRefreshing = false
-            }
-        }
-
-        private fun addFlags(countries: List<Country>) {
-            countries.map { c ->
-                c.flag =
-                    "https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${c.iso2.toLowerCase()}.png"
             }
         }
     }
@@ -103,7 +123,8 @@ class MainActivity : AppCompatActivity(),
         if (isNetworkAvailable()) {
             networkUnavailableSnackBar.dismiss()
             recyclerview.recycledViewPool.clear()
-            loadData()
+            swipeRefreshLayout.isRefreshing = true
+            loadDataEasy()
         } else {
             swipeRefreshLayout.postDelayed({
                 swipeRefreshLayout.isRefreshing = false
