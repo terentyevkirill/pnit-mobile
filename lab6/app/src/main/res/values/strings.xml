@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">lab6</string>
+    <string name="app_title">Countries</string>
+    <string name="area">Area:</string>
+    <string name="population">Population:</string>
+    <string name="capital">Capital:</string>
+    <string name="region">Region:</string>
+    <string name="flag">Flag</string>
 </resources>
