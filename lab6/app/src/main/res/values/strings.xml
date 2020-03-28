@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">lab6</string>
-    <string name="app_title">Countries</string>
+    <string name="app_title">Countries API</string>
     <string name="area">Area:</string>
     <string name="population">Population:</string>
     <string name="capital">Capital:</string>
     <string name="region">Region:</string>
     <string name="flag">Flag</string>
+    <string name="no_conn">No internet connection</string>
+    <string name="settings">Settings</string>
 </resources>
