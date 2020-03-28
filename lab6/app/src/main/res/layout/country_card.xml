@@ -132,7 +132,7 @@
             tools:text="Kiev" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_flag"
             android:layout_width="128dp"
             android:layout_height="86dp"
             android:layout_margin="4dp"
