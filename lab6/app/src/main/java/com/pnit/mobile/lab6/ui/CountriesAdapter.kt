@@ -1,4 +1,4 @@
-package com.pnit.mobile.lab6
+package com.pnit.mobile.lab6.ui
 
 import android.util.Log.d
 import android.view.LayoutInflater
@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.pnit.mobile.lab6.data.Country
+import com.pnit.mobile.lab6.R
 import kotlinx.android.synthetic.main.country_card.view.*
 
 class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {

@@ -1,4 +1,4 @@
-package com.pnit.mobile.lab6
+package com.pnit.mobile.lab6.ui
 
 import android.content.Context
 import android.content.Intent
@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
+import com.pnit.mobile.lab6.data.Country
+import com.pnit.mobile.lab6.R
+import com.pnit.mobile.lab6.api.RestApiService
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +40,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun loadData() {
-        val task = LoadAsyncTask(swipeRefreshLayout, apiService, adapter)
+        val task = LoadAsyncTask(
+            swipeRefreshLayout,
+            apiService,
+            adapter
+        )
         task.execute()
     }
 
@@ -151,6 +158,4 @@ class MainActivity : AppCompatActivity(),
             startActivity(Intent(Settings.ACTION_SETTINGS))
         }
     }
-
-
 }

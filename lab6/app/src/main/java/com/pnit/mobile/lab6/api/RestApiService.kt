@@ -1,5 +1,6 @@
-package com.pnit.mobile.lab6
+package com.pnit.mobile.lab6.api
 
+import com.pnit.mobile.lab6.data.Country
 import retrofit2.Call
 import retrofit2.http.GET
 
