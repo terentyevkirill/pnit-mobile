@@ -4,6 +4,8 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
@@ -12,8 +14,10 @@ import com.pnit.mobile.lab6.data.Country
 import com.pnit.mobile.lab6.R
 import kotlinx.android.synthetic.main.country_card.view.*
 
-class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
+class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>(), Filterable {
     private var countries = listOf<Country>()
+    private var filteredCountries = listOf<Country>()
+    private var filterString: String = ""
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(country: Country) {
@@ -33,6 +37,7 @@ class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
     fun setCountries(countries: List<Country>) {
         d("CountriesAdapter", "countries:$countries")
         this.countries = countries
+        filter.filter(filterString)
         notifyDataSetChanged()
     }
 
@@ -41,9 +46,47 @@ class CountriesAdapter : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
         return ViewHolder(view)
     }
 
-    override fun getItemCount() = countries.size
+    override fun getItemCount() = filteredCountries.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(countries[position])
+        holder.bind(filteredCountries[position])
     }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            private var bufferList = listOf<Country>()  // to avoid Inconsistency error
+            override fun performFiltering(p0: CharSequence?): FilterResults {
+                val charString = p0.toString()
+                filterString = charString
+                bufferList = if (charString.isEmpty()) {
+                    countries
+                } else {
+                    val filteredList = arrayListOf<Country>()
+                    for (row in countries) {
+                        if (row.name.toLowerCase().contains(charString.toLowerCase())
+                            || (row.iso2.toLowerCase().contains(charString.toLowerCase()))
+                            || (row.region.toLowerCase().contains(charString.toLowerCase()))
+                        ) {
+                            filteredList.add(row)
+                        }
+                    }
+                    filteredList
+                }
+
+                val filterResults = FilterResults()
+                filterResults.values = bufferList
+                return filterResults
+            }
+
+            override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
+                if (p1?.values != null) {
+                    bufferList = p1?.values as List<Country>
+                    filteredCountries = bufferList
+                    notifyDataSetChanged()
+                }
+            }
+
+        }
+    }
+
 }
